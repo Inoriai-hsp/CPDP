@@ -50,7 +50,7 @@ if __name__ == '__main__':
         'RF', 'Boost', 'MLP', 'CART', 'SVM', 'NB', 'Ridge', 'KNN'
                   ])
 
-    pl = Pool(1)
+    pl = Pool(5)
 
     for c in range(begin_num, end_num + 1):
         if c in range(6):
@@ -68,8 +68,9 @@ if __name__ == '__main__':
 
         for clf in range(len(CLF)):
             for adpt in range(len(DA)):
-                if CLF[clf] == 'Boost' and DA[adpt] == 'DBSCANfilter':
-                    ContinueEX(Xsource, Lsource, Xtarget, Ltarget, loc, targetName, DA[adpt], CLF[clf], 'adpt')
+                if CLF[clf] in ['KNN', 'MLP'] and DA[adpt] in ['DTB']:
+                    continue
+                pl.apply_async(ContinueEX, (Xsource, Lsource, Xtarget, Ltarget, loc, targetName, DA[adpt], CLF[clf], 'adpt'))
 
     pl.close()
     pl.join()
