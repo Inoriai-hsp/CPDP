@@ -50,7 +50,7 @@ if __name__ == '__main__':
         'RF', 'Boost', 'MLP', 'CART', 'SVM', 'NB', 'Ridge', 'KNN'
                   ])
 
-    pl = Pool(5)
+    pl = Pool(10)
 
     for c in range(begin_num, end_num + 1):
         if c in range(6):
