@@ -339,7 +339,7 @@ class cpdp(object):
                                             max_features=self.max_features, min_samples_split=self.RFmin_samples)
 
         if self.clfType == 'SVM':
-            self.m = SVC(kernel=self.SVCkernel, C=1, degree=self.degree, coef0=self.coef0, gamma=self.gamma)
+            self.m = SVC(kernel=self.SVCkernel, C=self.C, degree=self.degree, coef0=self.coef0, gamma=self.gamma)
             Xsource = normalize(Xsource)
             Xtarget = normalize(Xtarget)
 

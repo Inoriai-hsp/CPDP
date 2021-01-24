@@ -144,10 +144,10 @@ class optParamAll(object):
                     {'kernel': 'linear'},
                     {'kernel': 'poly', 'degree': hp.choice('degree', range(1, 5)),
                      'polycoef0': hp.uniform('polycoef0', 0, 10),
-                     'polygamma': hp.choice('polygamma', ["auto", "scale"])},
+                     'polygamma': hp.uniform('polygamma', 0.01, 100)},
                     {'kernel': 'sigmoid', 'sigcoef0': hp.uniform('sigcoef0', 0, 10),
-                     'siggamma': hp.choice('siggamma', ["auto", "scale"])},
-                    {'kernel': 'rbf', 'rbfgamma': hp.choice('rbfgamma', ["auto", "scale"])}
+                     'siggamma': hp.uniform('siggamma', 0.01, 100)},
+                    {'kernel': 'rbf', 'rbfgamma': hp.uniform('rbfgamma', 0.01, 100)}
                 ]),
                 'C': hp.uniform('C', 0.001, 1000),
             }
