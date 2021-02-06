@@ -24,7 +24,7 @@ def ContinueEX(Xsource, Lsource, Xtarget, Ltarget, loc, target, adpt, clf, mode)
 
 if __name__ == '__main__':
     begin_num = 1
-    end_num = 15
+    end_num = 20
 
     warnings.filterwarnings('ignore')
 
@@ -36,43 +36,37 @@ if __name__ == '__main__':
         tmp = sorted(tmp)
         flist.append(tmp)
 
-    DA = sorted([
-        'Bruakfilter',
-        'Peterfilter',
-        'DBSCANfilter',
-        'TCA',
-        'Universal',
-        'DS',
-        'DSBF',
-        'DTB',
-    ])
-    CLF = sorted([
-        'RF', 'Boost', 'MLP', 'CART', 'SVM', 'NB', 'Ridge', 'KNN'
-                  ])
+    DA = ['Bruakfilter',
+          'DBSCANfilter',
+          'DS',
+          'DSBF',
+          'DTB',
+          'Universal',
+          'Peterfilter',
+          'TCA']
+    CLF = ['RF', 'Boost', 'MLP', 'CART', 'SVM', 'NB', 'Ridge', 'KNN']
 
     pl = Pool(10)
 
-    for c in range(begin_num, end_num + 1):
-        if c in range(6):
-            tmp = flist[0].copy()
-            target = tmp.pop(c - 1)
-        if c in range(6, 18):
-            tmp = flist[1].copy()
-            target = tmp.pop(c - 6)
-        if c in range(18, 21):
-            tmp = flist[2].copy()
-            target = tmp.pop(c - 18)
-
-        Xsource, Lsource, Xtarget, Ltarget, loc = MfindCommonMetric(tmp, target, split=True)
-        targetName = target.split('/')[-1].split('.')[0]
-
+    for adpt in range(len(DA)):
         for clf in range(len(CLF)):
-            for adpt in range(len(DA)):
-                if CLF[clf] in ['KNN', 'MLP'] and DA[adpt] in ['DTB']:
-                    continue
+            if CLF[clf] in ['KNN', 'MLP'] and DA[adpt] in ['DTB']:
+                continue
+            for c in range(begin_num, end_num + 1):
+                if c in range(6):
+                    tmp = flist[0].copy()
+                    target = tmp.pop(c - 1)
+                if c in range(6, 18):
+                    tmp = flist[1].copy()
+                    target = tmp.pop(c - 6)
+                if c in range(18, 21):
+                    tmp = flist[2].copy()
+                    target = tmp.pop(c - 18)
+
+                Xsource, Lsource, Xtarget, Ltarget, loc = MfindCommonMetric(tmp, target, split=True)
+                targetName = target.split('/')[-1].split('.')[0]
                 pl.apply_async(ContinueEX, (Xsource, Lsource, Xtarget, Ltarget, loc, targetName, DA[adpt], CLF[clf], 'adpt'))
 
     pl.close()
     pl.join()
-
     print('done!')

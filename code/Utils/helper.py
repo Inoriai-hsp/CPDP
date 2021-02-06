@@ -49,7 +49,7 @@ def GetData(filename, showType=False):
             if tmp.pop() > 0:
                 y.append(1)
             else:
-                y.append(-1)
+                y.append(0)
             x.append(tmp)
 
         x = np.delete(np.asarray(x), empty, axis=1)

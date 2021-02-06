@@ -152,7 +152,7 @@ class optParamAll(object):
                 'C': hp.uniform('C', 0.001, 1000),
             }
 
-        if self.clf == 'NN':
+        if self.clf == 'MLP':
             clfdefault_value = {
                 'NNactive': 'relu',
                 'NNalpha': 0.0001,
@@ -425,7 +425,7 @@ class optParamCLF(object):
                 'C': hp.uniform('C', 0.001, 1000),
             }
 
-        if self.clf == 'NN':
+        if self.clf == 'MLP':
             clfdefault_value = {
                 'NNactive': 'relu',
                 'NNalpha': 0.0001,
@@ -651,7 +651,7 @@ class optParamSEQ(object):
                 'C': hp.uniform('C', 0.001, 1000),
             }
 
-        if self.clf == 'NN':
+        if self.clf == 'MLP':
             clfdefault_value = {
                 'NNactive': 'relu',
                 'NNalpha': 0.0001,
